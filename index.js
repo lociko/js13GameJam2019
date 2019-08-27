@@ -1,4 +1,5 @@
 let canvas = document.getElementById("myCanvas");
+let ctx = canvas.getContext("2d");
 
 const rectHeight = 50;
 const rectWidth = 100;
@@ -12,6 +13,48 @@ let dX = 0;
 let dY = 0;
 
 let cellRowsOnScreen = 0;
+
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
+
+let rightPressed = false;
+let leftPressed = false;
+let upPressed = false;
+let downPressed = false;
+
+let playerX = 50;
+let playerY = 50;
+
+function keyDownHandler(event) {
+    if(event.keyCode === 39) {
+        rightPressed = true;
+    }
+    else if(event.keyCode === 37) {
+        leftPressed = true;
+    }
+    if(event.keyCode === 40) {
+        downPressed = true;
+    }
+    else if(event.keyCode === 38) {
+        upPressed = true;
+    }
+}
+
+function keyUpHandler() {
+    if(event.keyCode === 39) {
+        rightPressed = false;
+    }
+    else if(event.keyCode === 37) {
+        leftPressed = false;
+    }
+    if(event.keyCode === 40) {
+        downPressed = false;
+    }
+    else if(event.keyCode === 38) {
+        upPressed = false;
+    }
+}
+
 
 function draw() {
     clearCanvas();
@@ -36,7 +79,34 @@ function draw() {
         cellRowsOnScreen += 1;
     }
 
+    drawPlayer();
+
     requestAnimationFrame(draw);
+}
+
+function drawPlayer() {
+    if(rightPressed) {
+        playerX += 5;
+    }
+    else if(leftPressed) {
+        playerX -= 5;
+    }
+    if(downPressed) {
+        playerY += 5;
+    }
+    else if(upPressed) {
+        playerY -= 5;
+    } else {
+        playerY -=1;
+        // playerX -=1;
+    }
+
+    ctx.beginPath();
+    ctx.arc(playerX, playerY, 10, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
 }
 
 initGame();
@@ -70,7 +140,6 @@ function pushRow(cells) {
  ********************/
 
 function clearCanvas() {
-    let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -81,7 +150,6 @@ function drawRect(x, y) {
 }
 
 function drawTopRect(x, y) {
-    let ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.moveTo(x, y + rectHeight / 2);
     ctx.lineTo(x + rectWidth / 2, y);
@@ -92,7 +160,6 @@ function drawTopRect(x, y) {
 }
 
 function drawLeftRect(x, y) {
-    let ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.moveTo(x, y + rectHeight / 2);
     ctx.lineTo(x, y + rectSideHeight + rectHeight / 2);
@@ -103,7 +170,6 @@ function drawLeftRect(x, y) {
 }
 
 function drawRightRect(x, y) {
-    let ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.moveTo(x + rectWidth / 2, y + rectHeight);
     ctx.lineTo(x + rectWidth / 2, y + rectSideHeight + rectHeight);
