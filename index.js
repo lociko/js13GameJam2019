@@ -23,34 +23,35 @@ let upPressed = false;
 let downPressed = false;
 
 let playerX = 50;
-let playerY = 50;
+let playerY = 35;
+let gameSpeed = 2;
 
 function keyDownHandler(event) {
-    if(event.keyCode === 39) {
+    if (event.keyCode === 39) {
         rightPressed = true;
-    }
-    else if(event.keyCode === 37) {
+        playerX += 50;
+        playerY += 35;
+    } else if (event.keyCode === 37) {
         leftPressed = true;
+        playerX -= 50;
+        playerY += 35;
     }
-    if(event.keyCode === 40) {
+    if (event.keyCode === 40) {
         downPressed = true;
-    }
-    else if(event.keyCode === 38) {
+    } else if (event.keyCode === 38) {
         upPressed = true;
     }
 }
 
 function keyUpHandler() {
-    if(event.keyCode === 39) {
+    if (event.keyCode === 39) {
         rightPressed = false;
-    }
-    else if(event.keyCode === 37) {
+    } else if (event.keyCode === 37) {
         leftPressed = false;
     }
-    if(event.keyCode === 40) {
+    if (event.keyCode === 40) {
         downPressed = false;
-    }
-    else if(event.keyCode === 38) {
+    } else if (event.keyCode === 38) {
         upPressed = false;
     }
 }
@@ -70,7 +71,7 @@ function draw() {
         }
     }
 
-    dY -= 1;
+    dY -= gameSpeed;
 
     if (dY % rectHeight === 0) {
         console.log('cells ' + cells.length);
@@ -85,25 +86,26 @@ function draw() {
 }
 
 function drawPlayer() {
-    if(rightPressed) {
-        playerX += 5;
+    if (rightPressed) {
+        // playerX += 25;
+        // playerY += 25;
+    } else if (leftPressed) {
+        // playerX -= 5;
+        // playerY += 5;
     }
-    else if(leftPressed) {
-        playerX -= 5;
-    }
-    if(downPressed) {
+    if (downPressed) {
         playerY += 5;
-    }
-    else if(upPressed) {
+    } else if (upPressed) {
         playerY -= 5;
     } else {
-        playerY -=1;
+        playerY -= gameSpeed;
         // playerX -=1;
     }
 
     ctx.beginPath();
-    ctx.arc(playerX, playerY, 10, 0, Math.PI*2);
-    ctx.fillStyle = "#0095DD";
+    ctx.arc(playerX, playerY, 10, 0, Math.PI * 2);
+    // ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "red";
     ctx.fill();
     ctx.closePath();
 
