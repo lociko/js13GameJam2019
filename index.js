@@ -6,8 +6,8 @@ const rectWidth = 100;
 const rectSideHeight = 10;
 
 const cells = [];
-const cellsRows = 21;
 const cellsColumns = 10;
+let cellsRows = 21;
 
 let dX = 0;
 let dY = 0;
@@ -74,7 +74,6 @@ function draw() {
     dY -= gameSpeed;
 
     if (dY % rectHeight === 0) {
-        console.log('cells ' + cells.length);
         pushRow(cells);
         pushRow(cells);
         cellRowsOnScreen += 1;
@@ -108,7 +107,6 @@ function drawPlayer() {
     ctx.fillStyle = "red";
     ctx.fill();
     ctx.closePath();
-
 }
 
 initGame();
@@ -122,9 +120,13 @@ draw();
 function initGame() {
     if (cells.length !== 0) return;
 
+    canvas.height = window.innerHeight;
+    cellsRows = canvas.height % rectHeight;
+
     for (let i = -1; i < cellsRows; i++) {
         pushRow(cells);
     }
+    console.log(cells.length);
 }
 
 function pushRow(cells) {
