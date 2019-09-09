@@ -8,7 +8,7 @@ const board = {
     update: function() {
         this.dY -= gameSpeed;
 
-        if (Math.abs(this.dY) === (rectHeight + rectSideHeight * 2)) {
+        if (Math.abs(this.dY) === (rectangle.height + rectangle.sideHeight * 2)) {
             this.dY = 0;
 
             // TODO: Why two times?
@@ -24,17 +24,17 @@ const board = {
     draw: function (ctx) {
         for (let i = 0; i < this.cells.length; i++) {
             for (let j = 0; j < this.cellsColumns; j++) {
-                let x = i % 2 === 0 ? j * rectWidth - rectWidth / 2 : j * rectWidth;
-                let y = i * (rectSideHeight + rectHeight / 2) - rectHeight / 2;
+                let x = i % 2 === 0 ? j * rectangle.width - rectangle.width / 2 : j * rectangle.width;
+                let y = i * (rectangle.sideHeight + rectangle.height / 2) - rectangle.height / 2;
 
                 if (!this.cells[i][j].empty) {
-                    drawRect(x + this.dX, y + this.dY);
-                };
+                    rectangle.draw(x + this.dX, y + this.dY);
+                }
 
                 ctx.fillText(
                     'i:' + i + ' j:' + j + this.cells[i][j].empty,
-                    x + this.dX + rectWidth / 3,
-                    y + this.dY + rectHeight / 2
+                    x + this.dX + rectangle.width / 3,
+                    y + this.dY + rectangle.height / 2
                 );
             }
         }
@@ -68,9 +68,9 @@ const board = {
         this.cells = [];
 
         canvas.height = window.innerHeight;
-        canvas.width = (this.cellsColumns - 1) * rectWidth;
+        canvas.width = (this.cellsColumns - 1) * rectangle.width;
 
-        this.cellsRows = Math.floor(window.innerHeight / (rectHeight)) + 5;
+        this.cellsRows = Math.floor(window.innerHeight / (rectangle.height)) + 5;
 
         for (let i = 0; i < this.cellsRows; i++) {
             if (i < 10) {

@@ -9,8 +9,8 @@ const player = {
         this.cellX = 4;
         this.cellY = 7;
 
-        this.x = ((this.cellX + 1) * rectWidth) - (rectWidth / 2);
-        this.y = ((this.cellY + 1) * (rectHeight + rectSideHeight)) / 2;
+        this.x = ((this.cellX + 1) * rectangle.width) - (rectangle.width / 2);
+        this.y = ((this.cellY + 1) * (rectangle.height + rectangle.sideHeight)) / 2;
     },
 
     goRight: function () {
@@ -36,10 +36,13 @@ const player = {
     },
 
     isPlayerDead: function () {
-        let isPlayerGoOut = player.y < 0;
-        let isPLayerOnEmptyCell = board.cells[player.cellY][player.cellX].empty;
+        let isPlayerGoOut = player.y < 0 || player.x < 0 || player.x > canvas.width;
 
-        return isPlayerGoOut || isPLayerOnEmptyCell;
+        return isPlayerGoOut || this.isPLayerOnEmptyCell();
+    },
+
+    isPLayerOnEmptyCell: function () {
+        return board.cells[player.cellY][player.cellX].empty;
     },
 
     update() {
