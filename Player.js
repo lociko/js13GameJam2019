@@ -2,22 +2,22 @@ const player = {
     x: 0,
     y: 0,
 
-    cellX: 5,
-    cellY: 8,
+    cellX: 4,
+    cellY: 7,
 
     init: function () {
-        // Set player to the center
-        this.x = (board.cellsColumns * rectWidth) / 2;
-        this.y = 5 * rectHeight;
+        this.cellX = 4;
+        this.cellY = 7;
 
-        this.cellX = 5;
-        this.cellY = 8;
+        this.x = ((this.cellX + 1) * rectWidth) - (rectWidth / 2);
+        this.y = ((this.cellY + 1) * (rectHeight + rectSideHeight)) / 2;
     },
 
     goRight: function () {
         if (this.cellY % 2 !== 0) {
             this.cellX += 1;
         }
+
         this.cellY += 1;
 
         this.x += 50;
@@ -28,6 +28,7 @@ const player = {
         if (this.cellY % 2 === 0) {
             this.cellX -= 1;
         }
+
         this.cellY += 1;
 
         this.x -= 50;
@@ -36,17 +37,19 @@ const player = {
 
     isPlayerDead: function () {
         let isPlayerGoOut = player.y < 0;
-        let isPLayerOnEmptyCell = board.cells[player.cellY - 1][player.cellX].empty === true;
+        let isPLayerOnEmptyCell = board.cells[player.cellY][player.cellX].empty;
 
         return isPlayerGoOut || isPLayerOnEmptyCell;
     },
 
-    draw(ctx) {
+    update() {
         this.y -= gameSpeed;
 
         console.log(player.cellY + ' ' + player.cellX);
         console.log(board.cells[player.cellY]);
+    },
 
+    draw(ctx) {
         ctx.beginPath();
 
         ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);

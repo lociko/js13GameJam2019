@@ -32,8 +32,8 @@ function gameLoop() {
         requestAnimationFrame(gameLoop);
         return;
     }
-    clearCanvas();
 
+    isGameOver();
 
     if (rightPressed) {
         player.goRight();
@@ -42,10 +42,14 @@ function gameLoop() {
         player.goLeft();
         leftPressed = false;
     }
+
+    board.update();
+    player.update();
+
+    clearCanvas();
+
     board.draw(ctx);
     player.draw(ctx);
-
-    isGameOver();
 
     requestAnimationFrame(gameLoop);
 }
