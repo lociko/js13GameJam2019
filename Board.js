@@ -12,7 +12,7 @@ const board = {
                 let x = i % 2 === 0 ? j * rectWidth - rectWidth / 2 : j * rectWidth;
                 let y = i * (10 + rectHeight / 2) - rectHeight / 2;
 
-                ctx.fillText('i:' + i + ' j:' + j, x + this.dX, y + this.dY);
+                ctx.fillText('i:' + i + ' j:' + j + this.cells[i][j].empty, x + this.dX, y + this.dY);
 
                 if (this.cells[i][j].empty === true) continue;
 

@@ -11,30 +11,20 @@ let pause = false;
 
 let gameSpeed = 2;
 
-document.addEventListener('keydown', keyDownHandler, false);
-document.addEventListener('keyup', keyUpHandler, false);
+/*********************
+ *                   *
+ ********************/
 
 initGame();
 gameLoop();
 
-function keyDownHandler(event) {
-    if (event.keyCode === 39) {
-        rightPressed = true;
-        player.goRight();
-    } else if (event.keyCode === 37) {
-        leftPressed = true;
-        player.goLeft();
-    } else if (event.keyCode === 32) {
-        pause = !pause;
-    }
-}
+/*********************
+ *  GAME FUNCTIONS   *
+ ********************/
 
-function keyUpHandler() {
-    if (event.keyCode === 39) {
-        rightPressed = false;
-    } else if (event.keyCode === 37) {
-        leftPressed = false;
-    }
+function initGame() {
+    board.init(canvas);
+    player.init();
 }
 
 function gameLoop() {
@@ -44,6 +34,14 @@ function gameLoop() {
     }
     clearCanvas();
 
+
+    if (rightPressed) {
+        player.goRight();
+        rightPressed = false;
+    } else if (leftPressed) {
+        player.goLeft();
+        leftPressed = false;
+    }
     board.draw(ctx);
     player.draw(ctx);
 
@@ -54,31 +52,23 @@ function gameLoop() {
 
 function isGameOver() {
     if (player.isPlayerDead()) {
+        console.log(' game ' + player.cellY + ' ' + player.cellX);
         alert("Game Over");
         initGame();
     }
 }
-/**************************
- *                        *
- *  GAME BOARD FUNCTIONS  *
- *                        *
- **************************/
-function initGame() {
-    board.init(canvas);
 
-    setPlayerToTheCenter();
+function keyDownHandler(event) {
+    if (event.keyCode === 39) {
+        rightPressed = true;
+    } else if (event.keyCode === 37) {
+        leftPressed = true;
+    } else if (event.keyCode === 32) {
+        pause = !pause;
+    }
 }
 
-function setPlayerToTheCenter() {
-    player.x = (board.cellsColumns * rectWidth) / 2;
-    player.y = 5 * rectHeight;
-}
-
-/*********************
- *                   *
- * DRAWING FUNCTIONS *
- *                   *
- ********************/
+document.addEventListener('keydown', keyDownHandler, false);
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

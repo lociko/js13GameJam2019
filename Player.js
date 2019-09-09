@@ -5,6 +5,15 @@ const player = {
     cellX: 5,
     cellY: 8,
 
+    init: function () {
+        // Set player to the center
+        this.x = (board.cellsColumns * rectWidth) / 2;
+        this.y = 5 * rectHeight;
+
+        this.cellX = 5;
+        this.cellY = 8;
+    },
+
     goRight: function () {
         if (this.cellY % 2 !== 0) {
             this.cellX += 1;
@@ -14,6 +23,7 @@ const player = {
         this.x += 50;
         this.y += 35;
     },
+
     goLeft: function () {
         if (this.cellY % 2 === 0) {
             this.cellX -= 1;
@@ -23,9 +33,10 @@ const player = {
         this.x -= 50;
         this.y += 35;
     },
+
     isPlayerDead: function () {
         let isPlayerGoOut = player.y < 0;
-        let isPLayerOnEmptyCell = board.cells[player.cellY][player.cellX].empty === true;
+        let isPLayerOnEmptyCell = board.cells[player.cellY - 1][player.cellX].empty === true;
 
         return isPlayerGoOut || isPLayerOnEmptyCell;
     },
