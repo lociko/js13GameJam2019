@@ -62,9 +62,10 @@ const board = {
         this.cells = [];
 
         canvas.height = window.innerHeight;
-        canvas.width = (this.cellsColumns - 1) * rectangle.width;
+        canvas.width = window.innerWidth;
 
-        this.cellsRows = Math.floor(window.innerHeight / (rectangle.height)) + 5;
+        this.cellsRows = Math.floor(window.innerHeight / (rectangle.height - 10));
+        this.cellsColumns = Math.floor(window.innerWidth / (rectangle.width - 10));
 
         for (let i = 0; i < this.cellsRows; i++) {
             board.pushStartRow();
