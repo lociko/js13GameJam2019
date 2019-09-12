@@ -1,6 +1,6 @@
 const board = {
     cells: [],
-    cellsColumns: 9,
+    cellsColumns: 10,
 
     dX: 0,
     dY: 0,
@@ -21,7 +21,7 @@ const board = {
         }
     },
 
-    draw: function (ctx) {
+    draw: function () {
         for (let i = 0; i < this.cells.length; i++) {
             for (let j = 0; j < this.cellsColumns; j++) {
                 let x = i % 2 === 0 ? j * rectangle.width - rectangle.width / 2 : j * rectangle.width;
@@ -30,12 +30,6 @@ const board = {
                 if (!this.cells[i][j].empty) {
                     rectangle.draw(x + this.dX, y + this.dY);
                 }
-
-                ctx.fillText(
-                    'i:' + i + ' j:' + j + this.cells[i][j].empty,
-                    x + this.dX + rectangle.width / 3,
-                    y + this.dY + rectangle.height / 2
-                );
             }
         }
     },
@@ -73,11 +67,7 @@ const board = {
         this.cellsRows = Math.floor(window.innerHeight / (rectangle.height)) + 5;
 
         for (let i = 0; i < this.cellsRows; i++) {
-            if (i < 10) {
-                board.pushStartRow();
-            } else {
-                board.pushRandomRow();
-            }
+            board.pushStartRow();
         }
     }
 };

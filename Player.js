@@ -36,9 +36,10 @@ const player = {
     },
 
     isPlayerDead: function () {
-        let isPlayerGoOut = player.y < 0 || player.x < 0 || player.x > canvas.width;
+        const isPlayerGoOut = player.y < 0 || player.x < 0 || player.x > canvas.width;
+        const isAfterLastCellColumn = player.cellY >= board.cells.length;
 
-        return isPlayerGoOut || this.isPLayerOnEmptyCell();
+        return  isAfterLastCellColumn || isPlayerGoOut || this.isPLayerOnEmptyCell();
     },
 
     isPLayerOnEmptyCell: function () {
@@ -47,9 +48,6 @@ const player = {
 
     update() {
         this.y -= gameSpeed;
-
-        console.log(player.cellY + ' ' + player.cellX);
-        console.log(board.cells[player.cellY]);
     },
 
     draw(ctx) {
