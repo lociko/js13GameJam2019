@@ -3,7 +3,35 @@ const menu = {
         ctx.font = "30px Georgia";
         ctx.fillStyle = "#000000";
         ctx.textAlign = "center";
-        ctx.fillText("Score: " + score, canvas.width /2, canvas.height - 20);
+        ctx.fillText("Score: " + score, canvas.width / 2, canvas.height - 20);
+    },
+
+    drawLife: function () {
+        let start = canvas.width / 2 - player.life * 40 / 2;
+
+        for (let i = 0; i < player.life; i++) {
+            let offset = i * 60;
+            this.drawOneLife(start + offset, canvas.height - 70);
+        }
+    },
+
+    drawOneLife: function (x, y) {
+        ctx.beginPath();
+        ctx.moveTo(x - 25, y + rectangle.height / 4 - 5);
+        ctx.lineTo(x - 25 + rectangle.width / 4, y - 15);
+        ctx.lineTo(x - 25 + rectangle.width / 2, y + rectangle.height / 4 - 5);
+        ctx.lineTo(x - 25 + rectangle.width / 4, y + rectangle.height / 2 - 5);
+        ctx.fillStyle = '#444444';
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(x - 25, y + rectangle.height / 4 - 5);
+        ctx.lineTo(x - 25 + rectangle.width / 4, y - 15);
+        ctx.lineTo(x - 25 + rectangle.width / 4, y + rectangle.height / 2 - 5);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+
+        ctx.closePath();
     },
 
     drawGameOver: function () {
@@ -46,7 +74,7 @@ const menu = {
         ctx.fillText("And 'space' to make a pause", canvas.width / 2, canvas.height / 2 + 190);
     },
 
-    drawPause() {
+    drawPause: function () {
         ctx.fillStyle = "rgba(0,0,0,0.01)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 

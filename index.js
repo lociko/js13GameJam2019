@@ -11,7 +11,6 @@ let isGameStarted = false;
 let gameSpeed = 2;
 
 let score = 0;
-
 /*********************
  *      START        *
  ********************/
@@ -73,15 +72,23 @@ function gameLoop() {
     clearCanvas();
 
     board.draw();
-    player.draw(ctx);
+    player.draw();
 
     menu.drawScore();
+    menu.drawLife();
 
     requestAnimationFrame(gameLoop);
 }
 
 function isGameOver() {
     if (player.isPlayerDead()) {
+        if (player.life > 0) {
+            board.cells[player.cellY][player.cellX].empty = false;
+            board.cells[player.cellY][player.cellX].color = '#999999';
+
+            player.life--;
+            return false;
+        }
         menu.drawGameOver();
         isGameStarted = false;
         pause = true;

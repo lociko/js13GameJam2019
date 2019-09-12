@@ -2,12 +2,16 @@ const player = {
     x: 0,
     y: 0,
 
+    life: 3,
+
     cellX: 4,
     cellY: 7,
 
     init: function () {
         this.cellX = 4;
         this.cellY = 7;
+
+        this.life = 3;
 
         this.x = ((this.cellX + 1) * rectangle.width) - (rectangle.width / 2);
         this.y = ((this.cellY + 1) * (rectangle.height + rectangle.sideHeight)) / 2;
@@ -39,7 +43,7 @@ const player = {
         const isPlayerGoOut = player.y < 0 || player.x < 0 || player.x > canvas.width;
         const isAfterLastCellColumn = player.cellY >= board.cells.length;
 
-        return  isAfterLastCellColumn || isPlayerGoOut || this.isPLayerOnEmptyCell();
+        return isAfterLastCellColumn || isPlayerGoOut || this.isPLayerOnEmptyCell();
     },
 
     isPLayerOnEmptyCell: function () {
@@ -50,12 +54,22 @@ const player = {
         this.y -= gameSpeed;
     },
 
-    draw(ctx) {
+    draw() {
         ctx.beginPath();
-
-        ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
-        ctx.fillStyle = "red";
+        ctx.moveTo(this.x - 25, this.y + rectangle.height /4 - 5);
+        ctx.lineTo(this.x - 25 + rectangle.width / 4, this.y - 15);
+        ctx.lineTo(this.x - 25 + rectangle.width /2, this.y + rectangle.height / 4 - 5);
+        ctx.lineTo(this.x - 25 + rectangle.width / 4, this.y + rectangle.height/ 2 - 5);
+        ctx.fillStyle = '#191919';
         ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(this.x - 25, this.y + rectangle.height /4 - 5);
+        ctx.lineTo(this.x - 25 + rectangle.width / 4, this.y - 15);
+        ctx.lineTo(this.x - 25 + rectangle.width / 4, this.y + rectangle.height/ 2 - 5);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+
         ctx.closePath();
     }
 };
