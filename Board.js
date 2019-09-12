@@ -12,8 +12,8 @@ const board = {
             this.dY = 0;
 
             // TODO: Why two times?
-            this.pushRandomRow();
-            this.pushRandomRow();
+            this.pushRandomRow('orange');
+            this.pushRandomRow('orange');
 
             player.cellY -= 2;
 
@@ -28,7 +28,7 @@ const board = {
                 let y = i * (rectangle.sideHeight + rectangle.height / 2) - rectangle.height / 2;
 
                 if (!this.cells[i][j].empty) {
-                    rectangle.draw(x + this.dX, y + this.dY);
+                    rectangle.draw(x + this.dX, y + this.dY, i, j);
                 }
             }
         }
@@ -44,12 +44,12 @@ const board = {
         this.cells.push(row);
     },
 
-    pushRandomRow: function () {
+    pushRandomRow: function (color) {
         const row = [];
 
         for (let i = 0; i <= this.cellsColumns; i++) {
             const isEmpty = Math.floor(Math.random() * 100) % 5 === 0;
-            row.push({empty: isEmpty});
+            row.push({empty: isEmpty, color: color});
         }
 
         this.cells.push(row);

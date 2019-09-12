@@ -3,19 +3,19 @@ const rectangle = {
     width: 100,
     sideHeight: 10,
 
-    draw: function (x, y) {
-        this.drawTopRect(x, y);
+    draw: function (x, y, row, column) {
+        this.drawTopRect(x, y, row, column);
         this.drawLeftRect(x, y);
         this.drawRightRect(x, y);
     },
 
-    drawTopRect: function (x, y) {
+    drawTopRect: function (x, y, row, column) {
         ctx.beginPath();
         ctx.moveTo(x, y + this.height / 2);
         ctx.lineTo(x + this.width / 2, y);
         ctx.lineTo(x + this.width, y + this.height / 2);
         ctx.lineTo(x + this.width / 2, y + this.height);
-        ctx.fillStyle = 'orange';
+        ctx.fillStyle = board.cells[row][column].color;
         ctx.fill();
     },
 
