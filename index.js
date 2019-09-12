@@ -82,7 +82,7 @@ function gameLoop() {
 
 function isGameOver() {
     if (player.isPlayerDead()) {
-        if (player.life > 0) {
+        if (player.life > 0 && player.cellY < board.cells.length && !player.isPlayerGoOut()) {
             board.cells[player.cellY][player.cellX].empty = false;
             board.cells[player.cellY][player.cellX].color = '#999999';
 

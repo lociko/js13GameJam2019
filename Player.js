@@ -40,10 +40,13 @@ const player = {
     },
 
     isPlayerDead: function () {
-        const isPlayerGoOut = player.y < 0 || player.x < 0 || player.x > canvas.width;
         const isAfterLastCellColumn = player.cellY >= board.cells.length;
 
-        return isAfterLastCellColumn || isPlayerGoOut || this.isPLayerOnEmptyCell();
+        return isAfterLastCellColumn || this.isPlayerGoOut() || this.isPLayerOnEmptyCell();
+    },
+
+    isPlayerGoOut: function() {
+        return player.y < 0 || player.x < 0 || player.x > canvas.width;
     },
 
     isPLayerOnEmptyCell: function () {
